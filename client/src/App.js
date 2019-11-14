@@ -49,10 +49,11 @@ export default class App extends Component {
       <div classname="overlay"></div>
       <div className="container">
       <form onSubmit={this.submitHandler}>
-        <div class="form-group mt-3">
+        <div class="finput-field col s6">
         <label for="exampleInputEmail1"><h4>Address</h4></label>
             <input
               type="text"
+              placeholder="321 Main St"
               name="address"
               value={address}
               onChange={this.onChange}
@@ -64,20 +65,23 @@ export default class App extends Component {
             <input
               type="text"
               name="cityState"
+              placeholder="Dallax TX"
               value={cityState}
               onChange={this.onChange}
               class="form-control"
             />
           </div>
           <div class="form-group">
-          <label for="exampleInputPassword1"><h4>Insurance</h4></label>
+          <label for="exampleInputPassword1"><h4>Insurance, CAPEX, & expenses</h4></label>
             <input
               type="text"
               name="insurance"
+              placeholder="1000"
               value={insurance}
               onChange={this.onChange}
               class="form-control"
             />
+            <span class="helper-text" data-error="wrong" data-success="right">Please Note: Insurance varies greatly. Please call an agent if unsure. </span>
             </div>
             <button class="btn btn-primary" type="submit">Submit</button>
           </form>
