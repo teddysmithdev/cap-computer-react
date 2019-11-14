@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import Navbar from './components/Navbar'
 
 
 export default class App extends Component {
@@ -44,6 +45,7 @@ export default class App extends Component {
     const CAP = this.state.value / NOI
     return (
       <div>
+      <Navbar />
       <div classname="overlay"></div>
       <div className="container">
       <form onSubmit={this.submitHandler}>
