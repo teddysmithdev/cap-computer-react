@@ -48,6 +48,9 @@ export default class App extends Component {
       <Navbar />
       <div classname="overlay"></div>
       <div className="container">
+      <br/>
+      <p class="card-panel grey lighten-5">Instructions: Fill out the 3 forms below and CapComputer will give you a estimate of a properties potential return. This is similar to a "Zestimate" and should not be relied on for due diligence.
+      </p>  
       <form onSubmit={this.submitHandler}>
         <div class="finput-field col s6">
         <label for="exampleInputEmail1"><h4>Address</h4></label>
@@ -85,11 +88,13 @@ export default class App extends Component {
             </div>
             <button class="btn btn-primary" type="submit">Submit</button>
           </form>
-          <h3>Approximate Value: {this.state.value}</h3>
-          <h3>Rent: {this.state.rent}</h3>
-          <h3>Taxes: {this.state.tax}</h3>
-          <h5>Estimate Yearly NOI: {NOI}</h5>
-          <h5>Estimated CAP Rate: {CAP}</h5>
+          <br/>
+          <br/>
+          <p className='blue lighten-5'>Approximate Value: {this.state.value}</p>
+          <p className='blue lighten-5'>Rent: {this.state.rent}</p>
+          <p className='blue lighten-5'>Taxes: {this.state.tax}</p>
+          <h5 className="red lighten-5">Estimate Yearly NOI: {NOI}</h5>
+          <h5 className="red lighten-5">Estimated CAP Rate: {CAP}</h5>
           </div>
       </div>
     )
