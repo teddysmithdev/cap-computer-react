@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import "./App.css"
 import Navbar from './components/Navbar'
+import Calculations from './components/Calculations'
+import HomeDetails from './components/HomeDetails'
+import Footer from './components/Footer'
 
 
 export default class App extends Component {
@@ -11,6 +15,8 @@ export default class App extends Component {
     value: '',
     zpid: '',
     tax: '',
+    lat: '',
+    long: '',
     rent: [],
 
   }
@@ -26,7 +32,17 @@ export default class App extends Component {
     axios
     .get(`/api?address=${this.state.address}&cityState=${this.state.cityState}`)
     .then(data => {
-      this.setState({ value: data.data.zestimate, rent: data.data.rentZest, zpid: data.data.zpid })
+      this.setState({ 
+        value: data.data.zestimate, 
+        rent: data.data.rentZest, 
+        zpid: data.data.zpid,
+        family: data.data.family,
+        bedrooms: data.data.bedrooms,
+        bathrooms: data.data.bathrooms,
+        sqft: data.data.sqft,
+        lat: data.data.lat,
+        long: data.data.long
+       })
     }).catch(err => console.log(err))
   
       fetch(`https://www.zillow.com/graphql/?zpid=${this.state.zpid}&operationName=PriceTaxQuery`, {
@@ -40,42 +56,44 @@ export default class App extends Component {
 
  
   render() { 
-    const { address, cityState, insurance } = this.state;
-    const NOI = (this.state.rent*12)-(this.state.tax)-(this.state.insurance)
-    const CAP = this.state.value / NOI
+    const { rent, value, tax, address, cityState, insurance, family, bedrooms, bathrooms, sqft } = this.state;
     return (
       <div>
       <Navbar />
-      <div classname="overlay"></div>
-      <div className="container">
-      <br/>
-      <p class="card-panel grey lighten-5">Instructions: Fill out the 3 forms below and CapComputer will give you a estimate of a properties potential return. This is similar to a "Zestimate" and should not be relied on for due diligence.
+      <div className="hero mb-3">
+        <br/>
+      <div className="container mt-3">
+        <div className="card">
+        <p className="card-header">
+        Instructions: Fill out the 3 forms below and CapComputer will give you a estimate of a properties potential return. This is similar to a "Zestimate" and should not be relied on for due diligence.
       </p>  
+      </div>
       <form onSubmit={this.submitHandler}>
-        <div class="finput-field col s6">
-        <label for="exampleInputEmail1"><h4>Address</h4></label>
+        <div class="input-group mt-2">
+        <span class="input-group-text" id="basic-addon1">Address</span>
             <input
               type="text"
-              placeholder="321 Main St"
+              placeholder='321 Main St 113'
               name="address"
               value={address}
               onChange={this.onChange}
               class="form-control"
+              
             />
         </div>
-        <div class="form-group">
-        <label for="exampleInputPassword1"><h4>City & State</h4></label>
+        <div class="input-group mt-2">
+        <span class="input-group-text" id="basic-addon1">Location</span>
             <input
               type="text"
               name="cityState"
-              placeholder="Dallax TX"
+              placeholder="Dallax TX (State Optional)"
               value={cityState}
               onChange={this.onChange}
               class="form-control"
             />
           </div>
-          <div class="form-group">
-          <label for="exampleInputPassword1"><h4>Insurance, CAPEX, & expenses</h4></label>
+          <div class="input-group mt-2">
+          <span class="input-group-text" id="basic-addon1">Insurance & CAPEX</span>
             <input
               type="text"
               name="insurance"
@@ -84,18 +102,21 @@ export default class App extends Component {
               onChange={this.onChange}
               class="form-control"
             />
-            <span class="helper-text" data-error="wrong" data-success="right">Please Note: Insurance varies greatly. Please call an agent if unsure. </span>
+             {/* <div className="card">
+        <p className="card-body">
+        Instructions: Fill out the 3 forms below and CapComputer will give you a estimate of a properties potential return. This is similar to a "Zestimate" and should not be relied on for due diligence.
+      </p>  
+      </div> */}
             </div>
-            <button class="btn btn-primary" type="submit">Submit</button>
+            <br/>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
           </form>
-          <br/>
-          <br/>
-          <p className='blue lighten-5'>Approximate Value: {this.state.value}</p>
-          <p className='blue lighten-5'>Rent: {this.state.rent}</p>
-          <p className='blue lighten-5'>Taxes: {this.state.tax}</p>
-          <h5 className="red lighten-5">Estimate Yearly NOI: {NOI}</h5>
-          <h5 className="red lighten-5">Estimated CAP Rate: {CAP}</h5>
-          </div>
+        </div>
+        </div>
+      <HomeDetails family={family} bedrooms={bedrooms} bathrooms={bathrooms} sqft={sqft} />
+      <Calculations rent={rent} tax={tax} insurance={insurance} value={value}/>
+      <Footer />
+      
       </div>
     )
   }

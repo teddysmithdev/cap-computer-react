@@ -2,13 +2,30 @@ import React from 'react'
 
 const Navbar = () => {
     return (
-        <nav>
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo left">CAPcompute</a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="sass.html">Home</a></li>
-            </ul>
-        </div>
+        // proloader
+        <nav className="navbar navbar-light bg-light px-3 pb-2" id="navBar">
+             <a class="navbar-brand" href="/">
+                capcomputer.
+                </a>
+                <button className="navbar-toggler" type="button" data-toggle='collapse' data-target="#myNav">
+                <span className="navbar-icon">
+                    <i className="fas fa-bars"></i>
+                </span>
+                </button>
+                <div className="collapse navbar-collapse" id="myNav">
+                    <ul className="navbar-nav mx-auto">
+                        <li className="nav-item active">
+                            <a href="/" className="nav-link">
+                                Home
+                            </a>
+                        </li>
+                        <li className="nav-item active">
+                            <a href="" className="nav-link">
+                                Home
+                            </a>
+                        </li>
+                    </ul>
+                </div>
         </nav>
     )
 }

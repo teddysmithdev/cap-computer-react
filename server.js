@@ -15,13 +15,31 @@ app.get('/api', cors(), (req, res) => {
     request(options, function (error, response, body) {
             let $ = cheerio.load(body);
             var zestimate = $('zestimate').first().find('amount').text()
-            var rentZest =  ($('rentzestimate').find('amount').first().text())
+            var rentZest = $('rentzestimate').find('amount').first().text()
+            var fullAddress = $('street').first().text()
+            var city = $('city').first().text()
+            var zipCode = $('zipcode').first().text()
             var zpid = $('zpid').first().text()
-
+            var bedrooms = $('bedrooms').first().text()
+            var bathrooms = $('bathrooms').first().text()
+            var sqft = $('finishedSqFt').first().text()
+            var family = $('useCode').first().text()
+            var lat = $('latitude').first().text()
+            var long = $('longitude').first().text()
+            console.log(fullAddress)
             res.json({
               zestimate: zestimate,
               rentZest: rentZest,
-              zpid: zpid
+              zpid: zpid,
+              fullAdress: fullAddress,
+              city: city,
+              zipCode: zipCode,
+              bedrooms: bedrooms,
+              bathrooms: bathrooms,
+              sqft: sqft,
+              family: family,
+              lat: lat,
+              long: long
             })
           })
   })
